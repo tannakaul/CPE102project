@@ -1,12 +1,12 @@
 import controller
-import entities
+from entities import *
 import image_store
 import pygame
 import random
-import save_load
+from save_load import *
 import sys
-import worldmodel
-import worldview
+from worldmodel import *
+from worldview import *
 
 RUN_AFTER_LOAD = True
 
@@ -23,12 +23,12 @@ TILE_HEIGHT = 32
 
 
 def create_default_background(img):
-   return entities.Background(image_store.DEFAULT_IMAGE_NAME, img)
+   return Background(image_store.DEFAULT_IMAGE_NAME, img)
 
 
-def load_world(world, i_store, filename):
+def main_load_world(world, i_store, filename):
    with open(filename, 'r') as file:
-      save_load.load_world(world, i_store, file, RUN_AFTER_LOAD)
+      world.load_world(i_store, file, RUN_AFTER_LOAD)
 
 
 def main():
@@ -44,13 +44,13 @@ def main():
    default_background = create_default_background(
       image_store.get_images(i_store, image_store.DEFAULT_IMAGE_NAME))
 
-   world = worldmodel.WorldModel(num_rows, num_cols, default_background)
-   view = worldview.WorldView(SCREEN_WIDTH // TILE_WIDTH,
+   world = WorldModel(num_rows, num_cols, default_background)
+   view = WorldView(SCREEN_WIDTH // TILE_WIDTH,
       SCREEN_HEIGHT // TILE_HEIGHT, screen, world, TILE_WIDTH, TILE_HEIGHT)
 
-   load_world(world, i_store, WORLD_FILE)
+   main_load_world(world, i_store, WORLD_FILE)
 
-   worldview.update_view(view)
+   view.update_view()
 
    controller.activity_loop(view, world)
 
