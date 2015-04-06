@@ -1,6 +1,6 @@
 import pygame
-import worldview
-import worldmodel
+from worldview import *
+from worldmodel import *
 import point
 
 KEY_DELAY = 400
@@ -24,19 +24,8 @@ def mouse_to_tile(pos, tile_width, tile_height):
 
 
 def handle_timer_event(world, view):
-   rects = worldmodel.update_on_time(world, pygame.time.get_ticks())
-   worldview.update_view_tiles(view, rects)
-
-
-def handle_mouse_motion(view, event):
-   mouse_pt = mouse_to_tile(event.pos, view.tile_width, view.tile_height)
-   worldview.mouse_move(view, mouse_pt)
-
-
-def handle_keydown(view, event):
-   view_delta = on_keydown(event)
-   worldview.update_view(view, view_delta)
-
+   rects = world.update_on_time(pygame.time.get_ticks())
+   view.update_view_tiles(rects)
 
 def activity_loop(view, world):
    pygame.key.set_repeat(KEY_DELAY, KEY_INTERVAL)
@@ -52,4 +41,3 @@ def activity_loop(view, world):
             handle_mouse_motion(view, event)
          elif event.type == pygame.KEYDOWN:
             handle_keydown(view, event)
-
