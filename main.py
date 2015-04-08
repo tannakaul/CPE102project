@@ -52,7 +52,7 @@ def main():
 
    view.update_view()
 
-   controller.activity_loop(view, world)
+   view.one_activity_loop(world)
 
 
 if __name__ == '__main__':
