@@ -38,12 +38,20 @@ class Point:
       if entity_select == 'obstacle':
          return entities.Obstacle(name, self, images)
       elif entity_select == 'miner':
-         return entities.MinerNotFull(name, MINER_LIMIT,self,random.randint(MINER_RATE_MIN, MINER_RATE_MAX),images, MINER_ANIMATION_RATE)
+         return entities.MinerNotFull(name, MINER_LIMIT,self,
+             random.randint(MINER_RATE_MIN, MINER_RATE_MAX),
+                 images, MINER_ANIMATION_RATE)
       elif entity_select == 'vein':
-         return entities.Vein(name,random.randint(VEIN_RATE_MIN, VEIN_RATE_MAX), self, images)
+         return entities.Vein(name,
+             random.randint(VEIN_RATE_MIN, VEIN_RATE_MAX), self, images)
       elif entity_select == 'ore':
-         return entities.Ore(name, self, images,random.randint(ORE_RATE_MIN, ORE_RATE_MAX))
+         return entities.Ore(name, self, images,
+             random.randint(ORE_RATE_MIN, ORE_RATE_MAX))
       elif entity_select == 'blacksmith':
-         return entities.Blacksmith(name, self, images,random.randint(SMITH_LIMIT_MIN, SMITH_LIMIT_MAX),random.randint(SMITH_RATE_MIN, SMITH_RATE_MAX))
+         return entities.Blacksmith(name, self, images,
+             random.randint(SMITH_LIMIT_MIN, SMITH_LIMIT_MAX),
+                 random.randint(SMITH_RATE_MIN, SMITH_RATE_MAX))
       else:
          return None
+
+  
