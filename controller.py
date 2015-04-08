@@ -23,21 +23,4 @@ def mouse_to_tile(pos, tile_width, tile_height):
    return point.Point(pos[0] // tile_width, pos[1] // tile_height)
 
 
-def handle_timer_event(world, view):
-   rects = world.update_on_time(pygame.time.get_ticks())
-   view.update_view_tiles(rects)
 
-def activity_loop(view, world):
-   pygame.key.set_repeat(KEY_DELAY, KEY_INTERVAL)
-   pygame.time.set_timer(pygame.USEREVENT, TIMER_FREQUENCY)
-
-   while 1:
-      for event in pygame.event.get():
-         if event.type == pygame.QUIT:
-            return
-         elif event.type == pygame.USEREVENT:
-            handle_timer_event(world, view)
-         elif event.type == pygame.MOUSEMOTION:
-            handle_mouse_motion(view, event)
-         elif event.type == pygame.KEYDOWN:
-            handle_keydown(view, event)
