@@ -111,6 +111,7 @@ class WorldModel:
                 for e in self.entities if isinstance(e, type)]
 
       return nearest_entity(oftype)
+   
    def remove_entity_at(self, pt):
       if (self.within_bounds(pt) and
           (self.occupancy.get_cell(pt)) != None):
