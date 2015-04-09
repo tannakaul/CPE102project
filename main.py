@@ -30,7 +30,6 @@ def main_load_world(world, i_store, filename):
    with open(filename, 'r') as file:
       world.load_world(i_store, file, RUN_AFTER_LOAD)
 
-
 def main():
    random.seed()
    pygame.init()
