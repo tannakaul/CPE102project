@@ -46,23 +46,9 @@ class Background:
    def next_image(self):
       self.current_img = (self.current_img + 1) % len(self.imgs)
 
-   def try_transform_miner_full(self, world):
-      new_entity = MinerNotFull(
-        self.get_name(), self.get_resource_limit(),
-        self.get_position(), self.get_rate(),
-        self.get_images(entity), self.get_animation_rate())
+   
 
-      return new_entity
-
-   def try_transform_miner_not_full(self,world):
-      if self.resource_count < self.resource_limit:
-         return entity
-      else:
-         new_entity = MinerFull(
-            self.get_name(), self.get_resource_limit(),
-            self.get_position(), self.get_rate(),
-            self.get_images(), self.get_animation_rate())
-         return new_entity
+   
 
 
 
@@ -117,6 +103,15 @@ class MinerNotFull:
          self.pending_actions = []
    def next_image(self):
       self.current_img = (self.current_img + 1) % len(self.imgs)
+   def try_transform_miner_not_full(self,world):
+      if self.resource_count < self.resource_limit:
+         return self
+      else:
+         new_entity = MinerFull(
+            self.get_name(), self.get_resource_limit(),
+            self.get_position(), self.get_rate(),
+            self.get_images(), self.get_animation_rate())
+         return new_entity
 
 
 class MinerFull:
@@ -170,6 +165,13 @@ class MinerFull:
          self.pending_actions = []
    def next_image(self):
       self.current_img = (self.current_img + 1) % len(self.imgs)
+   def try_transform_miner_full(self, world):
+      new_entity = MinerNotFull(
+        self.get_name(), self.get_resource_limit(),
+        self.get_position(), self.get_rate(),
+        self.get_images(), self.get_animation_rate())
+
+      return new_entity
 
 class Vein:
    def __init__(self, name, rate, position, imgs, resource_distance=1):
