@@ -1,3 +1,323 @@
-class:
-
+class: Point
 methods:
+	create_new_entity
+class: WorldView
+methods:
+	draw_background
+	draw_entities
+	draw_viewport
+	update_view
+	update_view_tiles
+	update_tile
+	get_tile_image
+	create_mouse_surface
+	update_mouse_cursor
+	mouse_move
+	handle_mouse_motion
+	one_handle_keydown
+	handle_keydown
+	one_activity_loop
+	handle_mouse_button
+	activity_loop
+class: Background
+methods: 
+	set_position
+	get_position
+	get_images
+	get_image
+	get_rate
+	set_resource_count
+	get_resource_count
+	get_resource_limit
+	get_resource_distance
+	get_name
+	get_animation_rate
+	remove_pending_action
+	add_pending_action
+	get_pending_actions
+	clear_pending_actions
+	next_image
+class: MinerNotFull
+methods:
+	set_position
+	get_position
+	get_images
+	get_image
+	get_rate
+	set_resource_count
+	get_resource_count
+	get_resource_limit
+	get_resource_distance
+	get_name
+	get_animation_rate
+	remove_pending_action
+	add_pending_action
+	get_pending_actions
+	clear_pending_actions
+	next_image
+	try_transform_miner_not_full
+class: MinerFull
+methods:
+	set_position
+	get_position
+	get_images
+	get_image
+	get_rate
+	set_resource_count
+	get_resource_count
+	get_resource_limit
+	get_resource_distance
+	get_name
+	get_animation_rate
+	remove_pending_action
+	add_pending_action
+	get_pending_actions
+	clear_pending_actions
+	next_image
+	try_transform_miner_full
+class: Vein
+methods:
+	set_position
+	get_position
+	get_images
+	get_image
+	get_rate
+	set_resource_count
+	get_resource_count
+	get_resource_limit
+	get_resource_distance
+	get_name
+	get_animation_rate
+	remove_pending_action
+	add_pending_action
+	get_pending_actions
+	clear_pending_actions
+	next_image
+class: Ore
+methods: 
+	set_position
+	get_position
+	get_images
+	get_image
+	get_rate
+	set_resource_count
+	get_resource_count
+	get_resource_limit
+	get_resource_distance
+	get_name
+	get_animation_rate
+	remove_pending_action
+	add_pending_action
+	get_pending_actions
+	clear_pending_actions
+	next_image
+class: Blacksmith
+methods:
+	set_position
+	get_position
+	get_images
+	get_image
+	get_rate
+	set_resource_count
+	get_resource_count
+	get_resource_limit
+	get_resource_distance
+	get_name
+	get_animation_rate
+	remove_pending_action
+	add_pending_action
+	get_pending_actions
+	clear_pending_actions
+	next_image
+class: Obstacle
+methods:
+	set_position
+	get_position
+	get_images
+	get_image
+	get_rate
+	set_resource_count
+	get_resource_count
+	get_resource_limit
+	get_resource_distance
+	get_name
+	get_animation_rate
+	remove_pending_action
+	add_pending_action
+	get_pending_actions
+	clear_pending_actions
+	next_image
+class: OreBlob
+methods:
+	set_position
+	get_position
+	get_images
+	get_image
+	get_rate
+	set_resource_count
+	get_resource_count
+	get_resource_limit
+	get_resource_distance
+	get_name
+	get_animation_rate
+	remove_pending_action
+	add_pending_action
+	get_pending_actions
+	clear_pending_actions
+	next_image
+class: Quake
+methods:
+	set_position
+	get_position
+	get_images
+	get_image
+	get_rate
+	set_resource_count
+	get_resource_count
+	get_resource_limit
+	get_resource_distance
+	get_name
+	get_animation_rate
+	remove_pending_action
+	add_pending_action
+	get_pending_actions
+	clear_pending_actions
+	next_image
+class: WorldModel
+methods:
+	within_bounds
+	is_occupied
+	find_nearest
+	remove_entity_at
+	next_position
+	unschedule_action
+	get_background_image
+	get_background
+	set_background
+	get_tile_occupant
+	get_entities
+	update_on_time
+	blob_next_position
+	find_open_around
+	create_blob
+	schedule_blob
+	schedule_miner
+	create_ore
+	schedule_ore
+	create_quake
+	schedule_quake
+	create_vein
+	schedule_vein
+	save_world
+	save_entities
+	load_world
+	add_background
+	add_entity
+	save_world
+	new_load_world
+	miner_to_ore
+	miner_to_smith
+	create_miner_not_full_action
+		action
+	create_miner_full_action
+		action
+	blob_to_vein
+	create_ore_blob_action
+		action
+	create_vein_action
+		action
+	try_transform_miner
+	create_miner_action
+	create_animation_action
+		action
+	create_entity_death_action
+		action
+	create_ore_transform_action
+		action
+	remove_entity
+	schedule_action
+	new_schedule_action
+	schedule_animation
+	clear_pending_actions
+	handle_timer_event
+	schedule_entity
+	new_add_entity
+	move_entity
+	remove_entity
+class: Grid
+methods: 
+	set_cell
+	get_cell
+class: OrderedList
+methods:
+	insert
+	remove
+	head
+	pop
+class: ListItem
+
+
+Functions:
+
+1) sign(x):
+I kept this as a function, because it just deals with a single number, and I didn’t think it was specifically related to a class enough to make it a method any of the classes we were given. 
+
+2) create_from_properties(properties,i_store):
+   create_miner(properties,i_store):
+   create_vein(properties,i_store):
+   create_ore(properties,i_store):
+   create_blacksmith(properties,i_store):
+   create_obstacle(properties,i_store):
+I left these functions as functions because they have parameters that don’t really fit in with any of the classes, and they just use information from the entities. So I thought they could just remain funtions.
+
+3) create_default_background(img)
+I think this one should stay a function because it just takes in an image, and it’s one of the two functions in main.py besides the function main, and I don’t think it would really fit into any class anyway.
+
+4) main_load_world(world,i_store,filename):
+I thought this one should stay in main.py as a function because it just opens the file and loads the world. This one could have gone in world model, but I decided to keep it as a function because it only uses a method from world and opens a file, it doesn’t really relate to the world class.
+
+5) create_default_image(tile_width, tile_height):
+I think this one should remain as a function because with it’s parameters, there isn’t really a class it would fit in and it doesn’t really go along with any of the classes.
+
+6) load_images(filename, tile_width, tile_height):
+This one just takes in a file, and also doesn’t really have anything specifically to do with any of the classes.
+
+7) process_image_line(images,line):
+This one doesn’t really have a class it should go in either. I think it should remain as a function because the parameters also don’t really have anything to do with any of the classes. 
+
+8) get_images_internal(images,key):
+This function basically just checks something. If key in images.So it doesn’t really have a class it should specifically go in.
+
+9) get_images(images,key):
+This is the same as the last one. It is just one if statement checking if they key is in the list of images, so it can just stay as a function. 
+
+10) mouse_to_tile(pos, tile_width, tile_height):
+I left this as a function because it just deals with numbers and returns a point, which I don’t think could have gone in the point class, because none of the parameters are a point. And even if it could, I don’t think it would make sense to return a point in a point class. So I think this one should just stay as a function. 
+
+11) on_keydown(event, world, entity_select, i_store):
+This function should stay as a function, because it doesn’t really relate to any of the classes. Mostly, just telling the keyboard what to do.
+
+12) is_background_title(entity_select):
+just the parameter and doesn’t really do anything with the classes enough to be a method in one of them.
+
+13) create_default_background(img):
+This one just takes in an image, so there’s not really a class that it would belong in or work with the parameter.
+
+14) viewport_to_world(viewport, pt):
+    world_to_viewport(viewport,pt):
+They both just return a point, and the viewport parameter makes it so there really isn’t a class I could put it in besides the point class, however again, a point returning a point wouldn’t make as much sense, so it makes more sense to just leave it as a function.
+
+15) clamp(v,low,high):
+This one just returns the min of the high and whichever one is bigger between v and low. There is really no reason to put this in a class right now, and there isn’t even a class it would really go in.
+
+16) create_shifted_viewport(viewport, delta, num_rows, num_cols):
+There really isn’t a class that this would fit in because of the parameters, and that it just doesn’t really work with one of the classes given, so it should just remain a function.
+
+17) nearest_entity(entity_dists):
+I don’t think there is really a class this one could go in because the parameter doesn’t correlate with any of the classes given.
+
+18) distance_sq(p1,p2):
+The most obvious would be to put these into the point class, however like we discussed in class, this is mostly just a computation with the object point and would be better just left as a function to use. 
+
+19) adjacent(pt1,pt2):
+This would also be better left as a function just because it’s a computation like the last one.
