@@ -97,6 +97,18 @@ class Entity(object):
       return self.imgs
    def get_image(self):
       return self.imgs[self.current_img]
+   def get_name(self):
+      return self.name
+class NonStaticEntity(Entity):
+   def __init__(self,name,imgs,position,rate,resource_count,resource_limit,resource_distance,
+                     animation_rate,current_img):
+      super(NonStaticEntity,self).__init__(name,imgs,position)
+      self.rate = rate
+      self.resource_count = resource_count
+      self.resource_limit = resource_limit
+      self.resource_distance = resource_distance
+      self.animation_rate = animation_rate
+      self.current_img = current_img
    def get_rate(self):
       return self.rate
    def set_resource_count(self, n):
@@ -108,8 +120,7 @@ class Entity(object):
       return self.resource_limit
    def get_resource_distance(self):
       return self.resource_distance
-   def get_name(self):
-      return self.name
+   
    def get_animation_rate(self):
       return self.animation_rate
 
@@ -143,12 +154,11 @@ class Entity(object):
 
 #all the methods that schedule the entities 
 #entity actions and obstacle enherit from it
-class ScheduleEntity(Entity):
-   def __init__(self,name,imgs,position):
-      super(ScheduleEntity,self).__init__(name,imgs,position)
-      self.name = name
-      self.imgs = imgs
-      self.position = position
+class ScheduleEntity(NonStaticEntity):
+   def __init__(self,name,imgs,position,rate,resource_count,resource_limit,
+                     resource_distance, animation_rate, current_img):
+      super(ScheduleEntity,self).__init__(name,imgs,position,rate,resource_count,
+                           resource_limit,resource_distance,animation_rate,current_img)
    
    def schedule_entity(self,world, i_store):
       if isinstance(self, MinerNotFull):
@@ -183,11 +193,11 @@ class ScheduleEntity(Entity):
 
 #all the action methods for all the entities
 class EntityActions(ScheduleEntity):
-   def __init__(self,name,imgs,position):
-      super(EntityActions,self).__init__(name,imgs,position)
-      self.name = name
-      self.imgs = imgs
-      self.position = position
+   def __init__(self,name,imgs,position,rate,resource_count,resource_limit,
+                     resource_distance, animation_rate, current_img, pending_actions):
+      super(EntityActions,self).__init__(name,imgs,position,rate,resource_count,resource_limit,
+                     resource_distance, animation_rate, current_img)
+      self.pending_actions = pending_actions
    def remove_pending_action(self, action):
       if hasattr(self, "pending_actions"):
          self.pending_actions.remove(action)
@@ -326,13 +336,10 @@ class EntityActions(ScheduleEntity):
 #because it inherits entity actions which has all the actions
 #it inherits from the entity actions superclass
 class MinerEntity(EntityActions):
-   def __init__(self,name,resource_limit, position, rate,
-       imgs,animation_rate):
-      super(MinerEntity,self).__init__(name,imgs,position)
-      self.resource_limit = resource_limit
-      self.rate = rate
-      self.animation_rate = animation_rate
-
+   def __init__(self,name,imgs,position,rate,resource_count,resource_limit,
+                     resource_distance, animation_rate, current_img, pending_actions):
+      super(MinerEntity,self).__init__(name,imgs,position,rate,resource_count,resource_limit,
+                     resource_distance, animation_rate, current_img,pending_actions)
 
    def try_transform_miner_not_full(self,world):
       if self.resource_count < self.resource_limit:
@@ -411,8 +418,8 @@ class MinerNotFull(MinerEntity):
    def __init__(self,name,resource_limit, position, rate,
        imgs,animation_rate):
 
-      super(MinerNotFull,self).__init__(name,resource_limit, position, rate,
-       imgs,animation_rate)
+      super(MinerNotFull,self).__init__(name,imgs,position,rate,0,resource_limit,
+                                 0,animation_rate,0,[])
 
       self.current_img = 0
       self.resource_count = 0
@@ -422,8 +429,8 @@ class MinerNotFull(MinerEntity):
 class MinerFull(MinerEntity):
    def __init__(self, name, resource_limit, position, rate, imgs,
       animation_rate):
-      super(MinerFull,self).__init__(name,resource_limit, position, rate,
-       imgs,animation_rate)
+      super(MinerFull,self).__init__(name,imgs,position,rate,resource_limit,resource_limit,
+                                 0,animation_rate,0,0,[])
   
       self.current_img = 0
       self.resource_count = resource_limit
@@ -432,7 +439,8 @@ class MinerFull(MinerEntity):
 
 class Vein(EntityActions):
    def __init__(self, name, rate, position, imgs, resource_distance=1):
-      super(Vein,self).__init__(name,imgs,position)
+      super(Vein,self).__init__(name,imgs,position,rate,0,0,resource_distance,0,
+                           0,[])
 
       self.rate = rate
       self.current_img = 0
@@ -442,7 +450,7 @@ class Vein(EntityActions):
 
 class Ore(EntityActions):
    def __init__(self, name, position, imgs, rate=5000):
-      super(Ore,self).__init__(name,imgs,position)
+      super(Ore,self).__init__(name,imgs,position,rate,0,0,0,0,0,[])
   
       self.current_img = 0
       self.rate = rate
@@ -452,7 +460,7 @@ class Ore(EntityActions):
 class Blacksmith(EntityActions):
    def __init__(self, name, position, imgs, resource_limit, rate,
       resource_distance=1):
-      super(Blacksmith,self).__init__(name,imgs,position)
+      super(Blacksmith,self).__init__(name,imgs,position,rate,0,resource_limit,resource_distance,0,0,[])
      
       self.current_img = 0
       self.resource_limit = resource_limit
@@ -462,15 +470,15 @@ class Blacksmith(EntityActions):
       self.pending_actions = []
 
 
-class Obstacle(ScheduleEntity):
+class Obstacle(EntityActions):
    def __init__(self, name, position, imgs):
-      super(Obstacle,self).__init__(name,imgs,position)
+      super(Obstacle,self).__init__(name,imgs,position,0,0,0,0,0,0,0)
       
       self.current_img = 0
  
 class OreBlob(EntityActions):
    def __init__(self, name, position, rate, imgs, animation_rate):
-      super(OreBlob,self).__init__(name,imgs,position)
+      super(OreBlob,self).__init__(name,imgs,position,rate,0,0,0,animation_rate,0,[])
    
       self.rate = rate
       self.current_img = 0
@@ -479,7 +487,7 @@ class OreBlob(EntityActions):
 
 class Quake(EntityActions):
    def __init__(self, name, position, imgs, animation_rate):
-      super(Quake,self).__init__(name,imgs,position)
+      super(Quake,self).__init__(name,imgs,position,rate,0,0,0,animation_rate,0,[])
    
       self.current_img = 0
       self.animation_rate = animation_rate
