@@ -1,0 +1,111 @@
+/*public int PROPERTY_KEY = 0;
+public String BGND_KEY;
+BGND_KEY = 'background';
+public int BGND_NUM_PROPERTIES = 4;
+public int BGND_NAME = 1;
+public int BGND_COL = 2;
+public int BGND_ROW = 3;
+
+public String MINER_KEY;
+MINER_KEY = 'miner';
+public int MINER_NUM_PROPERTIES = 7;
+public int MINER_NAME = 1;
+public int MINER_LIMIT = 4;
+public int MINER_COL = 2;
+public int MINER_ROW = 3;
+public int MINER_RATE = 5;
+public int MINER_ANIMATION_RATE = 6;
+
+public String OBSTACLE_KEY;
+public int OBSTACLE_KEY = 'obstacle';
+public int OBSTACLE_NUM_PROPERTIES = 4;
+public int OBSTACLE_NAME = 1;
+public int OBSTACLE_COL = 2;
+public int OBSTACLE_ROW = 3;
+
+public String ORE_KEY;
+public int ORE_KEY = 'ore';
+public int ORE_NUM_PROPERTIES = 5;
+public int ORE_NAME = 1;
+public int ORE_COL = 2;
+public int ORE_ROW = 3;
+public int ORE_RATE = 4;
+
+public String SMITH_KEY;
+SMITH_KEY = 'blacksmith';
+public int SMITH_NUM_PROPERTIES = 7;
+public int SMITH_NAME = 1;
+public int SMITH_COL = 2;
+public int SMITH_ROW = 3;
+public int SMITH_LIMIT = 4;
+public int SMITH_RATE = 5;
+public int SMITH_REACH = 6;
+
+public String VEIN_KEY;
+VEIN_KEY = 'vein';
+public int VEIN_NUM_PROPERTIES = 6;
+public int VEIN_NAME = 1;
+public int VEIN_RATE = 4;
+public int VEIN_COL = 2;
+public int VEIN_ROW = 3;
+public int VEIN_REACH = 5;
+public String WORLD_FILE_NAME;
+WORLD_FILE_NAME = 'gaia.sav';
+
+List<String> BACKGROUND_TAGS = new List(['grass', 'rocks']);
+
+public int TIMER_FREQUENCY = 100;
+
+public int MINER_LIMIT = 2;
+public int MINER_RATE_MIN = 600;
+public int MINER_RATE_MAX = 1000;
+public int MINER_ANIMATION_RATE = 100;
+public int VEIN_RATE_MIN = 8000;
+public int VEIN_RATE_MAX = 17000;
+public int ORE_RATE_MIN = 20000;
+public int ORE_RATE_MAX = 30000;
+public int SMITH_LIMIT_MIN = 10;
+public int SMITH_LIMIT_MAX = 15;
+public int SMITH_RATE_MIN = 2000;
+public int SMITH_RATE_MAX = 4000;
+
+public int BLOB_RATE_SCALE = 4;
+public int BLOB_ANIMATION_RATE_SCALE = 50;
+public int BLOB_ANIMATION_MIN = 1;
+public int BLOB_ANIMATION_MAX = 3;
+
+public int ORE_CORRUPT_MIN = 20000;
+public int ORE_CORRUPT_MAX = 30000;
+
+public int QUAKE_STEPS = 10;
+public int QUAKE_DURATION = 1100;
+public int QUAKE_ANIMATION_RATE = 100;
+
+public int VEIN_SPAWN_DELAY = 500;
+public int VEIN_RATE_MIN = 8000;
+public int VEIN_RATE_MAX = 17000;
+
+*/
+class Entity
+{
+    private String name;
+    private Point position; 
+    Entity(String name, Point position)
+    {
+        this.name = name;
+        this.position = position;
+    }
+    public void set_position(Point point)
+    {
+        this.position = point;
+	
+	}
+    public Point get_position()
+    {
+        return this.position;
+    }
+    public String get_name()
+    {
+        return this.name;
+    }
+}
