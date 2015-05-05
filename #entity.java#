@@ -1,0 +1,33 @@
+class Entity
+{
+    private double name;
+    private double imgs;
+    private double position;
+    
+    Entity(double name, double imgs, double position)
+    {
+        this.name = name;
+        this.imgs = imgs;
+        this.position = position;
+    }
+    public Point set_position(point)
+    {
+        this.position = point;
+    }
+    public double get_position()
+    {
+        return this.position;
+    }
+    public double get_images()
+    {
+        return this.imgs;
+    }
+    public double get_image()
+    {
+        return this.imgs[this.current_img];
+    }
+    public double get_name()
+    {
+        return this.name;
+    }
+}

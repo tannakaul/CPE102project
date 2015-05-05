@@ -1,0 +1,41 @@
+class NonStaticEntity
+    extends Entity
+{
+    private String name;
+    private Point position;
+    private int rate;
+    private int resource_count;
+    private int resource_limit;
+    private int resource_distance;
+    public NonStaticEntity
+    {
+	super(String name,Point position);
+	this.rate = rate;
+	this.resource_count = resource_count;
+	this.resource_limit = resource_limit;
+	this.resource_distance = resource_distance;
+    }
+    public int get_rate()
+    {
+	return this.rate;
+    }
+    public void set_resource_count(int n)
+    {
+	this.resource_count = n;
+    }
+    public int get_resource_count()
+    {
+	return this.resource_count;
+    }
+    public int get_resource_limit()
+    {
+	return this.resource_limit;
+	  }	  
+
+    public int get_resource_distance()
+    {
+	return this.resource_distance;
+	    }
+
+
+}

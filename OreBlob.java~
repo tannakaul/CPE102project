@@ -1,0 +1,13 @@
+class OreBlob
+    extends Entity
+{
+    private String name;
+    private Point position;
+    private int rate;
+    OreBlob(String name, Point position,int rate)
+    {
+	super(name,position);
+	this.rate = rate;
+	
+    }
+}

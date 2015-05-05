@@ -1,0 +1,12 @@
+class Ore
+    extends Entity
+{
+    private String name;
+    private Point position;
+    private int rate;
+    Ore(String name, Point position, int rate)
+    {
+	super(name, position);
+	this.rate = rate;
+    }
+}

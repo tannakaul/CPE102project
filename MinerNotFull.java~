@@ -1,0 +1,22 @@
+class MinerNotFull
+    extends Entity
+{
+    private String name;
+    private int resource_limit;
+    private Point position;
+    private double rate;
+    private double animation_rate;
+    private int resource_count;
+    
+    MinerNotFull(String name,int resource_limit,Point position,
+                 int rate)
+    {
+        super(name,position);
+	this.rate=rate;
+	this.resource_count =0;
+	this.resource_limit=resource_limit;
+	
+        
+    }
+    
+}
