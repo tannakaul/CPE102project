@@ -1,0 +1,21 @@
+public class OrderedList
+{
+    List list = new ArrayList[];
+    public OrderedList()
+    {
+	list = Collections.emptyList();
+    }
+    public void insert(int item,int ord)
+    {
+	int size = this.list.length;
+	int idx = 0;
+	while (idx < size && this.list[idx].ord < ord)
+	    {
+		idx += 1;
+	    }
+	this.list[idx] = [ListItem(item,ord)];
+    }
+    public void remove(int item)
+    {
+	int size
+	

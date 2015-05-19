@@ -1,21 +1,22 @@
 import java.util.*;
 import java.io.*;
 import java.lang.Math;
+import processing.core.*;
 public class WorldModel
 {
-    private int[][] background;
+    private Background[][] background;
     private Entity[][] occupancy;
     private int num_rows;
     private int num_cols;
-    List<Entity> entities = Collections.emptyList();
+    List<Entity> entities = new ArrayList<Entity>();
     List<Integer> action_queue = new ArrayList<Integer>();
-    public WorldModel(int num_cols,int num_rows,int[][] background)
+    public WorldModel(int num_cols,int num_rows,Background[][] background)
     {
         this.num_cols = num_cols;
         this.num_rows = num_rows;
         this.background = background;
         this.occupancy = occupancy;
-        background = new int[num_rows][num_cols];
+        background = new Background[num_rows][num_cols];
         occupancy = new Entity[num_rows][num_cols];
 	
 	this.entities = entities;
@@ -116,9 +117,8 @@ public class WorldModel
     {
         return this.entities;
     }
-    //deal with later
-    /*
-    public List<Integer> update_on_time(int ticks)
+
+    /*  public List<Integer> update_on_time(int ticks)
     {
         List<Integer> tiles = new ArrayList<Integer>();
         double next = this.action_queue.head();
@@ -165,5 +165,149 @@ public class WorldModel
         }
         return null;
     }
-}    
+    public Entity create_blob(String name,Point pt,int rate, int ticks,HashMap<String,List<PImage>> i_store)
+    {
+        Entity blob = new OreBlob(name,pt,rate,get_images(i_store,"blob"),Random(1,3)*BLOB_ANIMATION_RATE_SCALE);
+        blob.schedule_blob(ticks,i_store);
+        return blob;
+    }
+    public Entity create_ore(String name,Point pt,int ticks,HashMap<String,List<PImage>> i_store)
+    {
+        Entity ore = new Ore(name,pt,get_images(i_store,"ore"),Random(20000,30000));
+        ore.schedule_ore(this,ticks,i_store);
+        return ore;
+    }
+    public Entity create_quake(Point pt,int ticks,HashMap<String,List<PImage>> i_store)
+    {
+        Entity quake = new Quake("quake",pt,get_images(i_store,"quake"), QUAKE_ANIMATION_RATE);
+        quake.schedule_quake(this,ticks);
+        return quake;
+    }
+    public Entity create_vein(String name,Point pt,int ticks,HashMap<String,List<PImage>> i_store)
+    {
+        Entity vein = new Vein("vein" + name,Random(VEIN_RATE_MIN,VEIN_RATE_MAX),pt,get_images(i_store,"vein"));
+        return vein;
+    }
+
+    public void load_world(HashMap<String,List<PImage>> images,File file,boolean run)
+    {
+        for (String line : file)
+        {
+            File properties = line.split("\\s");
+            if(properties)
+		{
+		    if (properties[PROPERTY_KEY] == BGND_KEY)
+			{
+			    this.add_background(properties,images);
+			}
+		    else
+			{
+			    this.add_entity(properties,images,run);
+			}
+
+		}
+	}
+    }
+    public void add_background(List<String> properties,HashMap<String,List<PImage>> i_store)
+    {
+        if (properties.length >= BGND_NUM_PROPERTIES)
+        {
+            int[] col_properties = new int[BGND_COL];
+            col_properties.add(BGND_ROW);
+            Point pt = new Point((int)(col_properties[0]),(int)(col_properties[1]));
+            String name = ("background");
+            this.set_background(pt,Background(name,get_images(i_store,name)));
+        }
+    }
+    public void add_entity(List<String> properties,HashMap<String,List<PImage>> i_store,boolean run)
+    {
+        Entity new_entity = create_from_properties(properties,i_store);
+        if (new_entity)
+        {
+            this.new_add_entity(new_entity);
+            if(run)
+            {
+                this.schedule_entity(i_store);
+            }
+        }
+    }
+    public void new_load_world(HashMap<String,List<PImage>> i_store, File filename)
+    {
+        //with open stuff
+    }
+    public void new_remove_entity(Entity entity)
+    {
+        for (IntToLongFunction action : entity.get_pending_actions())
+        {
+            this.unschedule_action(action);
+        }
+        entity.clear_pending_actions();
+        this.remove_entity(entity);
+    }
+    public void new_schedule_action()
+    {
+    
+    }
+    public void schedule_animation(Entity entity, int repeat_count)
+    {
+        repeat_count = 0;
+        entity.schedule_action(this,entity.create_animation_action(this,repeat_count),entity.get_animation_rate());
+    }
+    public void clear_pending_actions(Entity entity)
+    {
+        for (IntToLongFunction action : entity.get_pending_actions())
+        {
+            this.unschedule_action(action);
+            
+        }
+        entity.clear_pending_actions();
+    }
+
+    public void remove_entity(Entity entity)
+    {
+        this.remove_entity_at(entity.get_position());
+    }
+    public void new_add_entity(Entity entity)
+    {
+        Point pt = entity.get_position();
+        if (this.within_bounds(pt))
+        {
+            Enitity old_entity = this.get_cell(pt);
+            
+        }
+    }
+		    
+
+
+    
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   

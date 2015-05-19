@@ -1,4 +1,4 @@
-# define occupancy value
+ # define occupancy value
 EMPTY = 0
 GATHERER = 1
 GENERATOR = 2

@@ -1,0 +1,6 @@
+import java.util.*;
+import processing.core.*;
+class ImageStore 
+{
+    List<PImage> smithimgs = new List<PImage>();
+    smithimgs.add(loadImage(

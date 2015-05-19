@@ -1,0 +1,15 @@
+public class Grid
+{
+    private int width;
+    private int height;
+    private int occupancy_value;
+    private List<Integer> cells;
+    public Grid(int width,int height,int occupancy_value)
+    {
+	this.width = width;
+	this.height = height;
+	cells = new ArrayList<Integer>();
+	for (int row = 0; row< this.height; row++)
+	    {
+		this.cells.add(
+	
